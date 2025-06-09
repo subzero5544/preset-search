@@ -1,0 +1,12 @@
+{
+    "display_name": "Preset Search",
+    "loading_order": 5,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "",
+    "author": "subwolf",
+    "version": "1.0.0",
+    "homePage": "",
+    "auto_update": false
+}
