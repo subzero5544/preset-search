@@ -5,8 +5,8 @@
     "optional": [],
     "js": "index.js",
     "css": "",
-    "author": "subwolf",
+    "author": "Subzero5544/subwolf",
     "version": "1.0.0",
-    "homePage": "",
-    "auto_update": false
+    "homePage": "https://github.com/subzero5544/preset-search",
+    "auto_update": true
 }
