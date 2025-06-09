@@ -1,11 +1,10 @@
 Hey everyone! Here's a cool extension I made. basically it just allows you to search through presets easily, i have always wanted something like this so here you go why not share it.
 
-here are some examples of it in action
+here is an example of it in action
 
 
 
-https://github.com/user-attachments/assets/2c097f12-c3bb-44a4-9223-0db5cc740f1b
-
+![Untitledvideo-MadewithClipchamp1-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/45eaa9bb-a64d-4830-9e58-c33fb371b04d)
 
 
 
