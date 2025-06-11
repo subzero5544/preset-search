@@ -16,3 +16,4 @@ Below are some simple screenshots to show how to install it, just in case you're
 
 just paste the link this link into that little box https://github.com/subzero5544/favorites-carousel.git
 
+used o3 to code most of this.
