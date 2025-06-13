@@ -1,0 +1,186 @@
+/* Preset Search – Select2 styling overrides */
+
+/*
+   Make the dropdown stretch as much as possible so that long preset names
+   are visible without horizontal scrolling or ellipsis.  We cap the width to
+   the viewport so it never exceeds the screen.
+*/
+
+.preset-search-dropdown {
+    width: auto !important;                /* Let Select2 compute based on content */
+    max-width: calc(100vw - 32px) !important; /* Guard against overshooting */
+    min-width: 280px !important;           /* Reasonable minimum */
+}
+
+/* Limit closed selector width and ellipsis for long preset names */
+.select2-container.flex1 {
+    flex: 1 1 0 !important;   /* take remaining row space, can shrink */
+    min-width: 0 !important;  /* allow shrinkage instead of min-content */
+    width: 0 !important;      /* start at 0 so long names cannot dictate row width */
+}
+
+.select2-container.flex1 .select2-selection--single {
+    width: 100% !important;
+    overflow: hidden !important;
+}
+
+/* Ensure Select2 inside flex rows doesn’t overflow (advanced formatting area) */
+.flex-container > .select2-container {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+}
+
+/* ======================================================================== */
+/*  Native-width override: make every Select2 wrapper behave like <select>.  */
+/* ======================================================================== */
+
+.select2-container,
+.select2-container--default,
+.select2-container--classic {
+    width: auto !important;      /* ignore Select2 inline width */
+    max-width: 100% !important;  /* never exceed parent */
+}
+
+/* Generic fallback for any preset bar */
+.select2-container {              /* applies to every preset bar */
+    flex: 1 1 0 !important;       /* let flexbox allocate space  */
+    min-width: 0 !important;      /* allow shrinkage             */
+    max-width: 100% !important;   /* never exceed parent width   */
+    width: auto !important;       /* override inline width value */
+}
+
+.select2-container .select2-selection--single {
+    max-width: 100% !important;
+    min-width: 0 !important;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    white-space: nowrap;
+    overflow: hidden;   /* clip overflowing text */
+    text-overflow: clip;
+}
+
+.select2-container.flex1 .select2-selection__rendered {
+    display: block;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: clip !important; /* remove ellipsis */
+}
+
+/* Increase the max-height to show more items before needing to scroll */
+.preset-search-dropdown .select2-results__options {
+    max-height: 70vh !important;           /* Up to 70% of viewport height */
+    overflow-x: hidden !important;         /* prevent horizontal scroll */
+}
+
+/* Wrap overly long option text instead of forcing horizontal scroll */
+.preset-search-dropdown .select2-results__option {
+    white-space: normal !important;
+    word-break: break-word !important;
+}
+
+/* ------------------------------------------------------------------------- */
+/*  Mobile fullscreen modal-style dropdown                                   */
+/* ------------------------------------------------------------------------- */
+
+
+@media (max-width: 768px) {
+    /* Full-screen dropdown */
+/* Use very high z-indexes to stay above any SillyTavern panes that may carry
+   their own high stacking contexts (e.g. settings sidebars). */
+
+.preset-search-dropdown.select2-dropdown {
+        position: fixed !important;
+        top: calc(env(safe-area-inset-top, 0px) + 2vh) !important;
+        left: 8px !important;
+        right: 8px !important;
+        /* Leave a small gap below the dropdown so the final list item is not
+           flush with the very bottom edge of the screen, making it easier to
+           tap on touch devices that have gesture bars or rounded corners. */
+        bottom: calc(env(safe-area-inset-bottom, 0px) + 4vh) !important;
+        width: auto !important;
+        height: auto !important;
+        margin: 0 !important;
+        border-radius: 12px !important;
+        max-width: 100vw !important;
+        box-sizing: border-box;
+        z-index: 2147483647 !important; /* Max 32-bit int */
+        display: flex;
+        flex-direction: column;
+
+        /* slim internal padding */
+        padding: 8px 0;
+    }
+    /* Close button styles removed */
+
+    /* Search bar section */
+    .preset-search-dropdown .select2-search--dropdown {
+        padding: 12px;
+    }
+
+    .preset-search-dropdown .select2-search__field {
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    /* Results list occupies remaining space */
+    .preset-search-dropdown .select2-results {
+        flex: 1 1 auto;
+        max-height: unset !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .preset-search-dropdown .select2-results__options {
+        max-height: none !important;
+        overflow-x: hidden !important;
+        overflow-y: visible !important;
+    }
+
+/* ------------------------------------------------------------------------- */
+/* iOS tweak – make Select2 feel closer to the native picker                 */
+/* ------------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+    .preset-search-dropdown.ios {
+        /* Position tighter to the left and shrink width for larger outside
+           tap area */
+        left: 8px !important;
+        right: auto !important;
+
+        /* About half of the viewport width, never larger than 320px */
+        width: 48vw !important;
+        max-width: 320px !important;
+
+        /* Leave extra gap at the bottom so gesture bar remains free */
+        bottom: calc(env(safe-area-inset-bottom, 0px) + 10vh) !important;
+    }
+}
+
+    /* Prevent body scroll when dropdown open */
+    body.preset-search-modal-open {
+        overflow: hidden !important;
+        height: 100vh;
+        position: relative;
+    }
+
+    /* Transparent overlay behind dropdown to catch taps/gestures */
+    .preset-search-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 2147483646; /* just below dropdown */
+        background: transparent;
+        pointer-events: auto; /* intercept taps */
+    }
+}
+
+/* Add extra scroll-padding so the last option isn’t obscured by the gap. */
+@media (max-width: 768px) {
+    .preset-search-dropdown .select2-results {
+        padding-bottom: 6px !important; /* space for comfortable tapping */
+    }
+}
